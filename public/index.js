@@ -61,3 +61,8 @@ axios.get('/api/owners/total').then(res => {
   
 })
 
+axios.get('/api/stations/all').then(res => {
+  let allData = res.data
+  console.log(allData);
+})
+
