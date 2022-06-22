@@ -8,7 +8,9 @@ function initMap() {
   // you can manage locations and add Melbourne lat: -37.8183, lng: 144.9671, timezone: Australia/Melbourne, locale: en-GB
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
+        
         let currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        
   
         map = new google.maps.Map(document.getElementById("map"), {
           // center property tells API where to center the map
@@ -21,6 +23,27 @@ function initMap() {
           position: currentLocation,
           map: map,
         });
+
+        let currenLocDiv = document.createElement('div')
+        let titleCl = document.createElement('h2')
+        let inputLat = document.createElement('input')
+        let inputLong = document.createElement('input')
+        let labelLat = document.createElement('label')
+        let labelLong = document.createElement('label')
+
+        currenLocDiv.className = 'Current-loc'
+        titleCl.textContent = 'Current Location'
+        labelLat.textContent = 'Latitude'
+        labelLong.textContent = 'Longitude'
+        inputLat.value = position.coords.latitude
+        inputLong.value = position.coords.longitude
+
+        rightBar.appendChild(currenLocDiv)
+        currenLocDiv.appendChild(titleCl)
+        currenLocDiv.appendChild(labelLat)
+        currenLocDiv.appendChild(inputLat)
+        currenLocDiv.appendChild(labelLong)
+        currenLocDiv.appendChild(inputLong)
       })
     } 
   }
@@ -90,7 +113,7 @@ axios.get('/api/stations/all').then(res => {
   }
 
   for (let i = 0; i < allData.length; i++) {
-    let randomData = allData[Math.floor(random(0, 5244))]
+    let randomData = allData[Math.floor(random(0, 300))]
     
     station.textContent = randomData.name
     owner.textContent = randomData.owner
@@ -112,14 +135,14 @@ axios.get('/api/stations/all').then(res => {
   
   rightBar.appendChild(nearestSection)
   nearestSection.appendChild(nearestTitle)
-
+  
 // loop through 5 stations
   for (let i = 0; i <= 5; i++) {
     let stationDiv = document.createElement('div')
     let stationName = document.createElement('h4')
     let stationAdd = document.createElement('p')
     let stationCity = document.createElement('p')
-
+    
     allData.forEach(database => {
       stationName.textContent = allData[i].name
       stationAdd.textContent = allData[i].street_add
@@ -134,3 +157,4 @@ axios.get('/api/stations/all').then(res => {
   
   
 })
+
