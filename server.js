@@ -20,4 +20,11 @@ app.get('/api/owners/total', (req, res) => {
   db.query(sql).then(result => res.send(result.rows))
 })
 
+app.get('/api/stations/all', (req, res) => {
+  let sql = 'SELECT * FROM testdata;'
+  db.query(sql, (req, dbRes) => {
+    res.send(dbRes.rows)
+  })
+})
+
 app.listen(port)
