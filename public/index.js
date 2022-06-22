@@ -52,7 +52,6 @@ function initMap() {
 
 
 
-
 axios.get('/api/owners/total').then(res => {
   let allData = res.data
   let total = 0
