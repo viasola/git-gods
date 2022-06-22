@@ -1,57 +1,156 @@
 const leftBar = document.querySelector('.left-bar')
 const rightBar = document.querySelector('.right-bar')
 
+let markers = []
 let map, infoWindow;
+
+// close your eyes and collapse this function for your sanity
+function placeMarker(stationName, stationOwner, currentStationCoord){
+  let pinColor
+  switch(stationOwner[0]){
+    case 'C':
+      pinColor = '#ff0000';
+      break;
+    case 'B':
+      pinColor = '#90ef90';
+      break;
+    case 'S':
+      pinColor = '#ffff02';
+      break;
+    case '7':
+      pinColor = '#ffa502';
+      break;
+    default:
+      pinColor = '#0084ff';
+  }
+  let pinLabel = stationOwner[0];
+  let pinSVGFilled = "M 12,2 C 8.1340068,2 5,5.1340068 5,9 c 0,5.25 7,13 7,13 0,0 7,-7.75 7,-13 0,-3.8659932 -3.134007,-7 -7,-7 z";
+  let markerImage = {
+      path: pinSVGFilled,
+      anchor: new google.maps.Point(12,17),
+      fillOpacity: 1,
+      fillColor: pinColor,
+      strokeWeight: 2,
+      strokeColor: "white",
+      scale: 2,
+      labelOrigin: new google.maps.Point(12,10)
+  };
+  let label = {
+      text: pinLabel,
+      color: "black",
+      fontSize: "13px",
+      fontWeight: '900'
+  };
+  const marker = new google.maps.Marker({
+    position: currentStationCoord,
+    map: map,
+    icon: markerImage,
+    label: label
+  })
+  
+  const contentString = `<h1>${stationName}</h1>` + `<p>${stationOwner}</p>`
+
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+  
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+      shouldFocus: false,
+    });
+  });
+  markers.push(marker)
+}
+
+function removeAllMarkers(){
+  markers.forEach(marker => {
+    marker.setMap(null)
+  })
+}
 
 function initMap() {
   // to test set sensor location to anywhere
   // you can manage locations and add Melbourne lat: -37.8183, lng: 144.9671, timezone: Australia/Melbourne, locale: en-GB
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        
-        let currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        
-  
-        map = new google.maps.Map(document.getElementById("map"), {
-          // center property tells API where to center the map
-          center: currentLocation,
-          zoom: 13,
-          minZoom: 11,
-        });
-  
-        const marker = new google.maps.Marker({
-          position: currentLocation,
-          map: map,
-        });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        let currenLocDiv = document.createElement('div')
-        let titleCl = document.createElement('h2')
-        let inputLat = document.createElement('input')
-        let inputLong = document.createElement('input')
-        let labelLat = document.createElement('label')
-        let labelLong = document.createElement('label')
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: currentLocation,
+        zoom: 13,
+        minZoom: 11,
+      });
+      
+      let currenLocDiv = document.createElement('div')
+      let titleCl = document.createElement('h2')
+      let inputLat = document.createElement('input')
+      let inputLong = document.createElement('input')
+      let labelLat = document.createElement('label')
+      let labelLong = document.createElement('label')
 
-        currenLocDiv.className = 'Current-loc'
-        titleCl.textContent = 'Current Location'
-        labelLat.textContent = 'Latitude'
-        labelLong.textContent = 'Longitude'
-        inputLat.value = position.coords.latitude
-        inputLong.value = position.coords.longitude
+      currenLocDiv.className = 'Current-loc'
+      titleCl.textContent = 'Current Location'
+      labelLat.textContent = 'Latitude'
+      labelLong.textContent = 'Longitude'
+      inputLat.value = position.coords.latitude
+      inputLong.value = position.coords.longitude
+      rightBar.appendChild(currenLocDiv)
+      currenLocDiv.appendChild(titleCl)
+      currenLocDiv.appendChild(labelLat)
+      currenLocDiv.appendChild(inputLat)
+      currenLocDiv.appendChild(labelLong)
+      currenLocDiv.appendChild(inputLong)
 
-        rightBar.appendChild(currenLocDiv)
-        currenLocDiv.appendChild(titleCl)
-        currenLocDiv.appendChild(labelLat)
-        currenLocDiv.appendChild(inputLat)
-        currenLocDiv.appendChild(labelLong)
-        currenLocDiv.appendChild(inputLong)
+      map.addListener("dragend", () => {
+        removeAllMarkers()
+
+        axios.get('/api/stations/all').then(res =>{
+          res.data.forEach(station => {
+            let lat = station.lat
+            let long = station.long
+            let stationName = station.name
+            let stationOwner = station.owner
+            let currentStationCoord = { lat: lat, lng: long}
+          
+            placeMarker(stationName, stationOwner, currentStationCoord)
+          })
+        })
       })
-    } 
+
+      map.addListener('zoom_changed', () => {
+        removeAllMarkers()
+
+        axios.get('/api/stations/all').then(res =>{
+          res.data.forEach(station => {
+            let lat = station.lat
+            let long = station.long
+            let stationName = station.name
+            let stationOwner = station.owner
+            let currentStationCoord = { lat: lat, lng: long}
+            
+            placeMarker(stationName, stationOwner, currentStationCoord)
+          })
+        })
+      })
+    })
   }
+}
   
-  window.initMap = initMap;
+window.initMap = initMap;
 
+axios.get('/api/stations/all').then(res =>{
+  res.data.forEach(station => {
+    let lat = station.lat
+    let long = station.long
+    let stationName = station.name
+    let stationOwner = station.owner
+    let currentStationCoord = { lat: lat, lng: long}
 
-
+    placeMarker(stationName, stationOwner, currentStationCoord)
+  })
+})
 
 axios.get('/api/owners/total').then(res => {
   let allData = res.data
@@ -154,7 +253,5 @@ axios.get('/api/stations/all').then(res => {
     stationDiv.appendChild(stationAdd)
     stationDiv.appendChild(stationCity)
   }
-  
-  
 })
 
