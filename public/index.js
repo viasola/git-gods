@@ -152,6 +152,30 @@ axios.get('/api/stations/all').then(res =>{
   })
 })
 
+axios.get('/api/stations/random').then(res => {
+  let allData = res.data
+
+  let spotlightContainerDiv = document.createElement('div')
+  let title = document.createElement('h1')
+  let refreshLink = document.createElement('a')
+  let station = document.createElement('p')
+  let owner = document.createElement('p')
+
+  refreshLink.setAttribute('href', '/')
+
+  title.textContent = 'spotlight'
+  refreshLink.textContent = 'refresh'
+  station.textContent = allData.name
+  owner.textContent = allData.owner
+
+  spotlightContainerDiv.appendChild(title)
+  spotlightContainerDiv.appendChild(station)
+  spotlightContainerDiv.appendChild(owner)
+  spotlightContainerDiv.appendChild(refreshLink)
+  leftBar.appendChild(spotlightContainerDiv)
+
+})
+
 axios.get('/api/owners/total').then(res => {
   let allData = res.data
   let total = 0
@@ -195,36 +219,6 @@ axios.get('/api/owners/total').then(res => {
 
 axios.get('/api/stations/all').then(res => {
   let allData = res.data
-
-  let spotlightContainerDiv = document.createElement('div')
-  let title = document.createElement('h1')
-  let refreshLink = document.createElement('a')
-  let station = document.createElement('p')
-  let owner = document.createElement('p')
-
-  refreshLink.setAttribute('href', '/')
-
-  title.textContent = 'spotlight'
-  refreshLink.textContent = 'refresh'
-  
-  function random(min,max) {
-    return Math.random() * (max-min) + min
-  }
-
-  for (let i = 0; i < allData.length; i++) {
-    let randomData = allData[Math.floor(random(0, 300))]
-    
-    station.textContent = randomData.name
-    owner.textContent = randomData.owner
-
-  }
-
-  spotlightContainerDiv.appendChild(title)
-  spotlightContainerDiv.appendChild(station)
-  spotlightContainerDiv.appendChild(owner)
-  spotlightContainerDiv.appendChild(refreshLink)
-  leftBar.appendChild(spotlightContainerDiv)
-
 /////////// Nearest 5 stations section
   let nearestSection = document.createElement('section')
   let nearestTitle = document.createElement('h1')

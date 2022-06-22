@@ -25,4 +25,13 @@ app.get('/api/stations/all', (req, res) => {
   db.query(sql).then(dbRes => res.json(dbRes.rows))
 })
 
+app.get('/api/stations/random', (req, res) => {
+  let sql = `SELECT * FROM petrol_stations;`
+  db.query(sql).then(dbRes => {
+    const data = dbRes.rows
+    const dataLength = Object.keys(data).length
+    const randomIdx = Math.floor(Math.random() * dataLength)
+    res.json(dbRes.rows[randomIdx])}) 
+})
+
 app.listen(port)
