@@ -15,3 +15,7 @@ SELECT sum(pg_column_size(t.*)) as filesize, count(*) as filerow FROM testdata a
 SELECT count(*) as filerow FROM testdata as t;
 
 SELECT owner, count(*) FROM petrol_stations GROUP BY owner;
+
+
+
+SELECT count(*) AS 'how many', 'owners' FROM petrol_stations where 'how many' > 1 GROUP BY 'owners';
