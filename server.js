@@ -6,7 +6,7 @@ const port = 8080
 db = new Pool({
   user: 'postgres',
   database: 'findr', //change back to test1
-  password: 'edthoo' //remove this
+  password: process.env.DATABASE_PASSWORD
 })
 
 app.use(express.static('public'))

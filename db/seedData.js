@@ -13,14 +13,13 @@ if (process.env.NODE_ENV === 'production'){
   db = new Pool({
   user: 'postgres',
   database: 'findr',
-  password: 'aiching'
+  password: process.env.DATABASE_PASSWORD
 })
 }
 const fs = require('fs')
 
 const file = fs.readFileSync('./petrolstations.csv', {encoding: 'utf8'})
-
-
+let counter = 0
 file.split('\n').forEach((line,idx) => {
   let streetAdd = line.split(',')[9].replace(/\W/g, ' ')
   let city = line.split(',')[10].replace(/\W/g, ' ')
@@ -28,6 +27,7 @@ file.split('\n').forEach((line,idx) => {
   let owner = line.split(',')[7].replace(/\W/g, ' ')
   let lat = line.split(',')[14]
   let long = line.split(',')[15]
+
   
   let sql = `INSERT INTO petrol_stations (name, owner, street_add, city, lat, long)
   VALUES ('${name}', '${owner}', '${streetAdd}', '${city}', ${lat}, ${long})`
