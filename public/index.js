@@ -25,7 +25,6 @@ function placeMarker(stationName, stationOwner, currentStationCoord){
   }
   let pinLabel = stationOwner[0];
   let pinSVGFilled = "M 12,2 C 8.1340068,2 5,5.1340068 5,9 c 0,5.25 7,13 7,13 0,0 7,-7.75 7,-13 0,-3.8659932 -3.134007,-7 -7,-7 z";
-  let labelOriginFilled =  new google.maps.Point(12,10);
   let markerImage = {
       path: pinSVGFilled,
       anchor: new google.maps.Point(12,17),
@@ -34,7 +33,7 @@ function placeMarker(stationName, stationOwner, currentStationCoord){
       strokeWeight: 2,
       strokeColor: "white",
       scale: 2,
-      labelOrigin: labelOriginFilled
+      labelOrigin: new google.maps.Point(12,10)
   };
   let label = {
       text: pinLabel,
@@ -72,19 +71,19 @@ function removeAllMarkers(){
 }
 
 function initMap() {
+  let currentLocation
   // to test set sensor location to anywhere
   // you can manage locations and add Melbourne lat: -37.8183, lng: 144.9671, timezone: Australia/Melbourne, locale: en-GB
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-      
       currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      
 
       map = new google.maps.Map(document.getElementById("map"), {
         center: currentLocation,
         zoom: 13,
         minZoom: 11,
       });
+      
       let currenLocDiv = document.createElement('div')
       let titleCl = document.createElement('h2')
       let inputLat = document.createElement('input')
