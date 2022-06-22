@@ -1,4 +1,5 @@
 const leftBar = document.querySelector('.left-bar')
+const rightBar = document.querySelector('.right-bar')
 
 let map;
 
@@ -95,5 +96,34 @@ axios.get('/api/stations/all').then(res => {
   spotlightContainerDiv.appendChild(refreshLink)
   leftBar.appendChild(spotlightContainerDiv)
 
-})
+/////////// Nearest 5 stations section
+  let nearestSection = document.createElement('section')
+  let nearestTitle = document.createElement('h1')
 
+  nearestSection.className = 'nearest_5'
+  nearestTitle.textContent = 'nearest 5'
+  
+  rightBar.appendChild(nearestSection)
+  nearestSection.appendChild(nearestTitle)
+
+// loop through 5 stations
+  for (let i = 0; i <= 5; i++) {
+    let stationDiv = document.createElement('div')
+    let stationName = document.createElement('h4')
+    let stationAdd = document.createElement('p')
+    let stationCity = document.createElement('p')
+
+    allData.forEach(database => {
+      stationName.textContent = allData[i].name
+      stationAdd.textContent = allData[i].street_add
+      stationCity.textContent = allData[i].city
+    })
+
+    nearestSection.appendChild(stationDiv)
+    stationDiv.appendChild(stationName)
+    stationDiv.appendChild(stationAdd)
+    stationDiv.appendChild(stationCity)
+  }
+  
+  
+})
