@@ -71,7 +71,6 @@ function removeAllMarkers(){
 }
 
 function initMap() {
-  let currentLocation
   // to test set sensor location to anywhere
   // you can manage locations and add Melbourne lat: -37.8183, lng: 144.9671, timezone: Australia/Melbourne, locale: en-GB
   if (navigator.geolocation) {
