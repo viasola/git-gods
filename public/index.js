@@ -1,24 +1,31 @@
 const leftBar = document.querySelector('.left-bar')
 const rightBar = document.querySelector('.right-bar')
 
-let map;
+let map, infoWindow;
 
 function initMap() {
-  const operaHouse = { lat: -33.856159, lng: 151.215256 }
-  map = new google.maps.Map(document.getElementById("map"), {
-    // center property tells API where to center the map
-    center: operaHouse,
-    zoom: 13,
-    minZoom: 11,
-  });
+  // to test set sensor location to anywhere
+  // you can manage locations and add Melbourne lat: -37.8183, lng: 144.9671, timezone: Australia/Melbourne, locale: en-GB
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
   
-  const marker = new google.maps.Marker({
-    position: operaHouse,
-    map: map,
-  })
-}
-
-window.initMap = initMap;
+        map = new google.maps.Map(document.getElementById("map"), {
+          // center property tells API where to center the map
+          center: currentLocation,
+          zoom: 13,
+          minZoom: 11,
+        });
+  
+        const marker = new google.maps.Marker({
+          position: currentLocation,
+          map: map,
+        });
+      })
+    } 
+  }
+  
+  window.initMap = initMap;
 
 
 
@@ -40,7 +47,7 @@ axios.get('/api/owners/total').then(res => {
   title2.textContent = 'breakdown by owners'
 
   allData.forEach(data => {
-    
+
     let totalCountOfOwners = total += Number(data.count)
 
     let column = document.createElement('tr')
@@ -61,7 +68,7 @@ axios.get('/api/owners/total').then(res => {
     column.appendChild(ownerRow)
     column.appendChild(countRow)
   })
-  
+
 })
 
 axios.get('/api/stations/all').then(res => {
