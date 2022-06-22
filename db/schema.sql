@@ -1,6 +1,6 @@
-CREATE DATABASE test1;
+CREATE DATABASE findr;
 
-CREATE TABLE testdata (
+CREATE TABLE petrol_stations (
   id SERIAL PRIMARY KEY,
   name TEXT,
   owner TEXT,
