@@ -76,6 +76,7 @@ axios.get('/api/owners/total').then(res => {
   let allData = res.data
   let total = 0
 
+  let statsContainerDiv = document.createElement('div')
   let title1 = document.createElement('h1')
   let subHeader = document.createElement('h2')
   let title2 = document.createElement('h1')
@@ -99,15 +100,50 @@ axios.get('/api/owners/total').then(res => {
     ownerRow.textContent = data.owner
     countRow.textContent = data.count
 
-    leftBar.appendChild(title1)
-    leftBar.appendChild(subHeader)
-    leftBar.appendChild(totalOwners)
-    leftBar.appendChild(title2)
-    leftBar.appendChild(ownersTable)
+    leftBar.appendChild(statsContainerDiv)
+    statsContainerDiv.appendChild(title1)
+    statsContainerDiv.appendChild(subHeader)
+    statsContainerDiv.appendChild(totalOwners)
+    statsContainerDiv.appendChild(title2)
+    statsContainerDiv.appendChild(ownersTable)
     ownersTable.appendChild(column)
     column.appendChild(ownerRow)
     column.appendChild(countRow)
   })
+
+})
+
+axios.get('/api/stations/all').then(res => {
+  let allData = res.data
+
+  let spotlightContainerDiv = document.createElement('div')
+  let title = document.createElement('h1')
+  let refreshLink = document.createElement('a')
+  let station = document.createElement('p')
+  let owner = document.createElement('p')
+
+  refreshLink.setAttribute('href', '/')
+
+  title.textContent = 'spotlight'
+  refreshLink.textContent = 'refresh'
+  
+  function random(min,max) {
+    return Math.random() * (max-min) + min
+  }
+
+  for (let i = 0; i < allData.length; i++) {
+    let randomData = allData[Math.floor(random(0, 5244))]
+    
+    station.textContent = randomData.name
+    owner.textContent = randomData.owner
+
+  }
+
+  spotlightContainerDiv.appendChild(title)
+  spotlightContainerDiv.appendChild(station)
+  spotlightContainerDiv.appendChild(owner)
+  spotlightContainerDiv.appendChild(refreshLink)
+  leftBar.appendChild(spotlightContainerDiv)
 
 })
 
