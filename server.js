@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/owners/total', (req, res) => {
-  const sql = `SELECT owner, count(*) FROM testdata GROUP BY owner;`
+  const sql = `SELECT owner, count(*) FROM petrol_stations GROUP BY owner;`
   db.query(sql).then(dbRes => res.json(dbRes.rows))
 })
 

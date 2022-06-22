@@ -13,3 +13,5 @@ CREATE TABLE petrol_stations (
 SELECT sum(pg_column_size(t.*)) as filesize, count(*) as filerow FROM testdata as t;
 
 SELECT count(*) as filerow FROM testdata as t;
+
+SELECT owner, count(*) FROM petrol_stations GROUP BY owner;
