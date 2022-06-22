@@ -6,7 +6,7 @@ const port = 8080
 db = new Pool({
   user: 'postgres',
   database: 'findr', //change back to test1
-  password: '' //remove this
+  password: 'edthoo' //remove this
 })
 
 app.use(express.static('public'))
@@ -21,7 +21,7 @@ app.get('/api/owners/total', (req, res) => {
 })
 
 app.get('/api/stations/all', (req, res) => {
-  let sql = 'SELECT * FROM petrol_stations;'
+  let sql = 'SELECT * FROM petrol_stations ORDER BY petrol_stations ASC LIMIT 300;'
   db.query(sql).then(dbRes => res.json(dbRes.rows))
 })
 
