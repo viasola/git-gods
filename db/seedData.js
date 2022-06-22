@@ -12,13 +12,13 @@ if (process.env.NODE_ENV === 'production'){
 } else {
   db = new Pool({
   user: 'postgres',
-  database: 'test1',
-  password: process.env.DATABASE_PASSWORD
+  database: 'findr',
+  password: ''
 })
 }
 const fs = require('fs')
 
-const file = fs.readFileSync('./petrolstation.csv', {encoding: 'utf8'})
+const file = fs.readFileSync('./petrolstations.csv', {encoding: 'utf8'})
 
 
 file.split('\n').forEach((line,idx) => {
@@ -29,7 +29,7 @@ file.split('\n').forEach((line,idx) => {
   let lat = line.split(',')[14]
   let long = line.split(',')[15]
   
-  let sql = `INSERT INTO testdata (name, owner, street_add, city, lat, long)
+  let sql = `INSERT INTO petrol_stations (name, owner, street_add, city, lat, long)
   VALUES ('${name}', '${owner}', '${streetAdd}', '${city}', ${lat}, ${long})`
   db.query(sql, (err, res) =>{
     console.log(err)

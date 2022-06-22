@@ -5,26 +5,24 @@ const port = 8080
 
 db = new Pool({
   user: 'postgres',
-  database: 'test1',
-  password: ''
+  database: 'findr', //change back to test1
+  password: '' //remove this
 })
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
   res.render('index')
 })
 
 app.get('/api/owners/total', (req, res) => {
-  const sql = `SELECT owner, count(*) FROM testdata GROUP BY owner;`
-  db.query(sql).then(result => res.send(result.rows))
+  const sql = `SELECT owner, count(*) FROM petrol_stations GROUP BY owner;`
+  db.query(sql).then(dbRes => res.json(dbRes.rows))
 })
 
 app.get('/api/stations/all', (req, res) => {
-  let sql = 'SELECT * FROM testdata;'
-  db.query(sql, (req, dbRes) => {
-    res.send(dbRes.rows)
-  })
+  let sql = 'SELECT * FROM petrol_stations;'
+  db.query(sql).then(dbRes => res.json(dbRes.rows))
 })
 
 app.listen(port)
