@@ -34,4 +34,15 @@ app.get('/api/stations/random', (req, res) => {
     res.json(dbRes.rows[randomIdx])}) 
 })
 
+app.get('/api/stats', (req, res) => {
+
+  const sql = `SELECT owner, count(*) as total FROM petrol_stations GROUP BY owner;`
+  
+  db.query(sql).then(dbRes => 
+    
+  res.json({totalByOwner: dbRes.rows.filter(row => row.total > 1), "total" : `${dbRes.rows.filter(row => row).map(row => Number(row.total)).reduce((a,b)=> a+b)}`})
+  )
+
+})
+
 app.listen(port)

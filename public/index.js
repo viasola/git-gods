@@ -219,6 +219,7 @@ axios.get('/api/owners/total').then(res => {
 
 axios.get('/api/stations/all').then(res => {
   let allData = res.data
+
 /////////// Nearest 5 stations section
   let nearestSection = document.createElement('section')
   let nearestTitle = document.createElement('h1')
