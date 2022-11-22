@@ -28,6 +28,10 @@ SELECT sum(count(*)) over() as totalStations from petrol_stations ON total;
 
 select owner, count(*) as total, sum(count(*)) over() as totalStations from petrol_stations group by owner having count(owner) > 1;
 
- 
-
-
+select * from (
+SELECT  *,( 3959 * acos( cos( radians(-37.8183 /*currentLat*/) ) * cos( radians( lat ) ) * cos( radians( long ) - radians(144.9671 /*currentLong*/) ) + sin( radians(-37.8183 /*currentLat*/) ) * sin( radians( lat ) ) ) ) AS distance 
+FROM petrol_stations
+) AS nearest_stations
+where distance < 5
+ORDER BY distance
+LIMIT 700;

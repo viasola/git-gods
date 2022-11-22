@@ -7,17 +7,227 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: mistyrose;
+  background-color: white;
 }
 
+h1 {
+  font-family: 'Rubik', sans-serif;
+  margin-bottom: 25px;
+  color: #ff7420;
+}
+
+h2 {
+  font-family: 'Tenor Sans', sans-serif;
+  color: #767676;
+}
+
+h4 {
+  font-family: 'Overpass', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+p, tr {
+  font-family: 'Overpass', sans-serif;
+  color: black;
+}
 main {
   display: grid;
-  grid-template-columns: 0.6fr 2fr 0.6fr;
+  grid-template-columns: 0.2fr 2fr 0.2fr;
   height: 100vh;
 }
 
+img {
+  margin-top: 5px;
+}
+
+.left-bar {
+  border: 1px solid black;
+  max-width: 330px;
+  min-width: 330px;
+}
+
+.logo {
+  max-width: 50%;
+  height: auto;
+}
+
+.img-wrapper {
+  padding-left: 10px;
+}
+
+.right-bar {
+  border: 1px solid black;
+  max-width: 330px;
+  min-width: 330px;
+}
+
+.spotlight-header {
+  margin-bottom: 25px;
+}
+
+.spotlight-div {
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+.spotlight-owner{
+  font-size: 14px;
+  margin-top: 3px;
+  font-style: italic;
+}
+
+.station-link {
+  font-family: 'Overpass', sans-serif;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 16px;
+  color: #767676;
+}
+
+.station-link:hover{
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #ff7420;
+}
+
+.stats-div {
+  padding: 10px;
+}
+
+.stats-div h1 {
+  margin-bottom: 25px;
+}
+.current-div {
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+.nearest-station {
+  border-bottom: 1px solid black;
+  padding: 5px;
+  padding-bottom: 20px;
+}
+
+.nearest-station h4 {
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+.nearest-station p {
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+.owner-text {
+  font-family: 'Overpass', sans-serif;
+  margin-top: 1px;
+  font-style: italic;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.nearest-header {
+  padding: 5px;
+}
 
 #map {
   height: 100%;
 }
+
+.bp-color {
+  background-color: #90ef90;
+}
+
+.caltex-color {
+  background-color: #ff0000;
+}
+
+.seven-eleven-color {
+  border-top: 1px solid black;
+  background-color: #ffa502;
+}
+
+.shell-color {
+  background-color: #ffff02;
+}
+
+.default-color {
+  background-color: #0084ff;
+}
+
+table {
+  border-spacing: 4px 0px;
+}
+
+.lat-div {
+  padding-bottom: 7px;
+}
+
+.long-div {
+   margin-bottom: 15px;
+}
+
+.lat-text{
+  padding-right: 16px;
+  font-family: 'Overpass', sans-serif;
+  font-weight: 600;
+}
+
+.long-text{
+  padding-right: 3px;
+  font-family: 'Overpass', sans-serif;
+  font-weight: 600;
+}
+
+.input-lat,
+.input-lng {
+  width: 233px;
+  border: 2px solid #ff7420;
+}
+
+.address {
+  font-family: 'Overpass', sans-serif;
+  font-weight: 600;
+  color: #ff7420;
+}
+
+.address-div{
+  height: 70px;
+}
+
+.address-text {
+  font-family: 'Overpass', sans-serif;
+  font-weight: 600;
+}
+
+.refresh-btn {
+  margin-top: 7px;
+  text-align: center;
+  color: white;
+  width: 305px;
+  background-color: #ff7420;
+  border: none;
+  padding: 14px 0px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.refresh-btn:hover {
+  background-color: #e1691f;
+}
+
+.station-count{
+  font-family: 'Overpass', sans-serif;
+}
+
+.count-row{
+  display: inline-block;
+  margin-left: 22px;
+  color: #ff7420;
+  font-weight: 600;
+}
+
 

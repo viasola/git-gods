@@ -1,25 +1,67 @@
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Findr</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
-  
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass&family=Rubik:wght@600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
-      <div class="left-bar"></div>
+      <div class="left-bar">
+        <div class="img-wrapper">
+          <img src="./findr-logo.png" alt="" class="logo" />
+        </div>
+        <div class="spotlight-div">
+          <h1 class="spotlight-header">SPOTLIGHT</h1>
+          <a class="station-link" href=""></a>
+          <p class="spotlight-owner"></p>
+          <a class="refresh-link" href="">
+            <button class="refresh-btn">Refresh</button>
+          </a>
+        </div>
+        <div class="stats-div"></div>
+      </div>
       <div id="map"></div>
-      <div class="right-bar"></div>
+      <div class="right-bar">
+        <div class="current-div">
+          <h1>CURRENT LOCATION</h1>
+          <div class="lat-div">
+            <label for="" class="lat-text">Latitude:</label>
+            <input class="input-lat" type="text" />
+          </div>
+          <div class="long-div">
+            <label for="" class="long-text">Longitude:</label>
+            <input class="input-lng" type="text" />
+          </div>
+          <div class="address-div">
+            <div class="address-text">Address:</div>
+            <div class="address"></div>
+          </div>
+        </div>
+        <div class="nearest-div">
+          <h1 class="nearest-header">NEAREST 5 PETROL STATIONS</h1>
+          <section class="nearest-section"></section>
+        </div>
+      </div>
     </main>
   </body>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
-    </script>
-    <script src="../index.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfOz9CoXec6DYWHgve3mFYjY9B_u8wyIU&callback=initMap&v=weekly"
-      defer>
-    </script>
-    
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFtV9ZhvlAMT7_3-YZZt6H1HFGl9tHIkc&callback=initMap&v=weekly"
+    defer
+  ></script>
+  <script src="../index.js"></script>
 </html>
-
